@@ -46,6 +46,21 @@ def scrape():
 
     browser.quit()
 
+# Mars Weather 
+
+    browser = init_browser()
+    url_twitter = "https://twitter.com/marswxreport?lang=en"
+    browser.visit(url_twitter)
+    
+    html_weather = browser.html
+    soup_weather = BeautifulSoup(html_weather, 'html.parser')
+    mars_text = soup_weather.find("div", class_="css-1dbjc4n")
+    mars_weather = mars_text.text.strip()
+    mars_info_dict['weather'] = mars_weather
+    
+    print(mars_weather)
+    browser.quit()
+
 # Mars Facts
     browser = init_browser()
     mars_facts_url = "https://space-facts.com/mars/"
@@ -98,5 +113,7 @@ def scrape():
     mars_info_dict["hemisphere_image_urls"] = hemisphere_image_urls
 
     browser.quit()
+
+    print(mars_info_dict)
 
     return mars_info_dict
